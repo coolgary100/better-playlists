@@ -19,25 +19,25 @@ let fakeServerData = {
       {
         name: "Discover Weekly",
         songs: [
-          { name: "Beat It", duration: 1345 },
+          { name: "Fireflies", duration: 1345 },
           { name: "Cannelloni Makaroni", duration: 1236 },
-          { name: "Rosa Helikopter", duration: 70000 }
+          { name: "Fergalicious", duration: 70000 }
         ]
       },
       {
         name: "Another playlist - the best!",
         songs: [
           { name: "Beat It", duration: 1345 },
-          { name: "Cannelloni Makaroni", duration: 1236 },
+          { name: "Faded", duration: 1236 },
           { name: "Rosa Helikopter", duration: 70000 }
         ]
       },
       {
         name: "Playlist - yeah!",
         songs: [
-          { name: "Beat It", duration: 1345 },
-          { name: "Cannelloni Makaroni", duration: 1236 },
-          { name: "Rosa Helikopter", duration: 70000 }
+          { name: "See You", duration: 1345 },
+          { name: "The Best Song", duration: 1236 },
+          { name: "Sucker", duration: 70000 }
         ]
       }
     ]
@@ -84,14 +84,15 @@ class Filter extends Component {
 
 class Playlist extends Component {
   render() {
+    let playlist = this.props.playlist;
     return (
       <div style={{ ...defaultStyle, display: "inline-block", width: "10%" }}>
         <img />
-        <h3>Playlist Name</h3>
+        <h3>{playlist.name}</h3>
         <ul>
-          <li>Song 1</li>
-          <li>Song 2</li>
-          <li>Song 3</li>
+          {playlist.songs.map(song => (
+            <li>{song.name}</li>
+          ))}
         </ul>
       </div>
     );
@@ -131,10 +132,9 @@ class App extends Component {
               }
             />
             <Filter />
-            <Playlist />
-            <Playlist />
-            <Playlist />
-            <Playlist />
+            {this.state.serverData.user.playlists.map(playlist => (
+              <Playlist playlist={playlist} />
+            ))}
           </div>
         ) : (
           <h1 style={defaultStyle}>Loading...</h1>
